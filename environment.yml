@@ -1,0 +1,7 @@
+name: catalog
+
+dependencies:
+  - flask
+  - sqlalchemy
+  - pycodestyle
+  - python=2.7.12
