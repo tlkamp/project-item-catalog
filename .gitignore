@@ -1,0 +1,6 @@
+*.pyc
+*secret*
+.idea
+.vscode
+*.db
+*.iml
