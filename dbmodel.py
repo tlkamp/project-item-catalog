@@ -12,7 +12,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(80), nullable=False)
-    email = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False, unique=True, index=True)
 
     @property
     def serialize(self):
@@ -57,7 +57,7 @@ class Item(Base):
             'id': self.id,
             'name': self.name,
             'description': self.desc,
-            'last_updated': self.last_updated,  # TODO check formatting here
+            'last_updated': self.last_updated.strftime('%Y-%m-%d %H:%M'),
             'category': self.category_id,
             'user': self.user_id
         }
