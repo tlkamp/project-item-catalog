@@ -63,5 +63,6 @@ class Item(Base):
         }
 
 
+# We always want the metadata created if it hasn't been.
 engine = create_engine('sqlite:///catalog.db')
 Base.metadata.create_all(engine)
