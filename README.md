@@ -1,1 +1,2 @@
-Place your catalog project in this directory.
+# Project: Item Catalog
+The second project in the Fullstack Web Developer Nanodegree.
