@@ -10,7 +10,8 @@ app = flask.Flask(__name__)
 def default():
     helper = DBHelper()
     categories = helper.session.query(Category).all()
-    return flask.render_template('index.html', categories=categories)
+    items = helper.session.query(Item).order_by(Item.last_updated.desc()).all()
+    return flask.render_template('index.html', categories=categories, items=items)
 
 
 @app.route('/catalog/items/all')
