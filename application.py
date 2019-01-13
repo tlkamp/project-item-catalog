@@ -14,6 +14,19 @@ def default():
     return flask.render_template('index.html', categories=categories, items=items)
 
 
+@app.route('/catalog/<string:categoryname>/')
+def show_specific_categoryname(categoryname):
+    helper = DBHelper()
+    categories = helper.session.query(Category).all()
+    category = helper.get_category(categoryname)
+    if category:
+        cat_items = helper.session.query(Item).filter_by(category_id=category.id).all()
+        return flask.render_template('category.html', categories=categories, category=category, items=cat_items)
+    else:
+        # If the category doesn't exist, return a 404.
+        flask.abort(404)
+
+
 @app.route('/catalog/items/all')
 def show_all_items():
     helper = DBHelper()

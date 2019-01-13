@@ -48,6 +48,10 @@ class DBHelper(object):
         except NoResultFound:
             return False
 
+    def get_category(self, category_name):
+        if self.category_exists(category_name):
+            return self.session.query(Category).filter_by(name=category_name.title()).one()
+
 
 if __name__ == "__main__":
     helper = DBHelper()
