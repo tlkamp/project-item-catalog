@@ -8,8 +8,9 @@ app = flask.Flask(__name__)
 @app.route('/')
 @app.route('/catalog')
 def default():
-    return 'Hello World!'
-
+  helper = DBHelper()
+  categories = helper.session.query(Category).all()
+  return flask.render_template('index.html', categories=categories)
 
 @app.route('/catalog/items/all')
 def show_all_items():
