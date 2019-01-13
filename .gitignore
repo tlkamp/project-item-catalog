@@ -4,3 +4,4 @@
 .vscode
 *.db
 *.iml
+__pycache__
