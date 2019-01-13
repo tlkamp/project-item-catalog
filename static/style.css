@@ -29,6 +29,10 @@ a {
   color: #636e72;
 }
 
+#outer {
+  margin-top: 1em;
+}
+
 span.category {
   color: #e17055;
   font-style: italic;
