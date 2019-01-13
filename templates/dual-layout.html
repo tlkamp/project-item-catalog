@@ -1,0 +1,11 @@
+{% extends "basic.html" %}
+{% block content %}
+<div id="sidebar" class="col-sm-3">
+  {% block sidebar %}
+  {% endblock %}
+</div>
+<main id="maincontent" class="col">
+  {% block maincontent %}
+  {% endblock %}
+</main>
+{% endblock %}

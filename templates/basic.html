@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Item Catalog</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <!-- Have to use url_for to keep the css url in sync with inherited templates. -->
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+  </head>
+
+  <body>
+    <nav class="navbar sticky-top navbar-light bg-light ">
+      <a class="navbar-brand">Item Catalog</a>
+      <form class="form-inline">
+        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Log in</button>
+      </form>
+    </nav>
+
+    <div id="outer" class="container">
+      <div class="row">
+        {% block content %}
+        {% endblock %}
+      </div>
+    </div>
+
+  </body>
+
+  <!-- Bootstrap resources -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</html>

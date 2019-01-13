@@ -1,0 +1,22 @@
+{% extends "dual-layout.html" %}
+{% block sidebar %}
+<h2>Categories</h2>
+<ul>
+  {% for category in categories %}
+  <li>
+    <h5><a href="#">{{category.name}}</a></h5>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
+
+{% block maincontent %}
+<h2>{{category.name}} Items ({{items|length}} items)</h2>
+<ul>
+  {% for item in items %}
+  <li>
+    <h5><a href="#">{{item.name}}</a></h5>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
