@@ -1,0 +1,29 @@
+body {
+  height: 100%;
+  width: 100%;
+  background-color: #dfe6e9;
+}
+
+div {
+  padding: 0.5em 1em;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #d63031;
+}
+
+#sidebar {
+  border-right: 1px solid #d63031;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+a {
+  color: #636e72;
+}
