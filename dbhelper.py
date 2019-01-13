@@ -55,6 +55,7 @@ if __name__ == "__main__":
     pprint([user.serialize for user in helper.session.query(User).all()])
 
     helper.create_item('default item', 'something to test with', 'default', 'default@example.com')
+    helper.create_item('another default', 'something with a later modified date', 'default', 'default@example.com')
 
     pprint([category.serialize for category in helper.session.query(Category).all()])
     pprint([item.serialize for item in helper.session.query(Item).all()])
