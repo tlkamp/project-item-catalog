@@ -5,6 +5,7 @@ from dbhelper import DBHelper
 app = flask.Flask(__name__)
 
 
+# Renderable routes
 @app.route('/')
 @app.route('/catalog')
 def default():
@@ -27,28 +28,29 @@ def show_specific_categoryname(categoryname):
         flask.abort(404)
 
 
-@app.route('/catalog/items/all')
+# Api routes
+@app.route('/api/items/all')
 def show_all_items():
     helper = DBHelper()
     items = helper.session.query(Item).all()
     return flask.jsonify(items=[item.serialize for item in items])
 
 
-@app.route('/catalog/items/<int:itemid>')
+@app.route('/api/items/<int:itemid>')
 def show_specific_item(itemid):
     helper = DBHelper()
     item = helper.session.query(Item).filter_by(id=itemid).one()
     return flask.jsonify(item=item.serialize)
 
 
-@app.route('/catalog/categories/all')
+@app.route('/api/categories/all')
 def show_all_categories():
     helper = DBHelper()
     categories = helper.session.query(Category).all()
     return flask.jsonify(categories=[category.serialize for category in categories])
 
 
-@app.route('/catalog/categories/<int:categoryid>')
+@app.route('/api/categories/<int:categoryid>')
 def show_specific_category(categoryid):
     helper = DBHelper()
     category = helper.session.query(Category).filter_by(id=categoryid).one()
