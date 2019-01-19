@@ -83,7 +83,10 @@ def show_specific_categoryname(categoryname):
 def show_specific_item_page(categoryname, itemname):
     helper = DBHelper()
     item = helper.get_item(itemname, item_category_name=categoryname)
-    return flask.render_template('item.html', item=item)
+    if item:
+        return flask.render_template('item.html', item=item)
+    else:
+        flask.abort(404)
 
 
 # Api routes
