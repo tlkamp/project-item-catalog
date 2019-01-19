@@ -19,15 +19,51 @@ class DBHelper(object):
             self.create_category(category_name)
 
         cat = self.session.query(Category).filter_by(name=category_name.title()).one()
-        new_item = Item(name=name, desc=description, user_id=current_user.id, category_id=cat.id)
-        self.session.add(new_item)
+        if not self.item_exists(name, cat.id):
+            new_item = Item(name=name, desc=description, user_id=current_user.id, category_id=cat.id)
+            self.session.add(new_item)
+            self.session.commit()
+
+    def update_item(self, item_to_update, new_name=None, new_category=None, new_desc=None):
+        if new_name:
+            item_to_update.name = new_name
+        if new_category:
+            item_to_update.category = new_category
+        if new_desc:
+            item_to_update.desc = new_desc
         self.session.commit()
 
-    def category_exists(self, category_name):
+    def item_exists(self, item_name, category_id=None, category_name=None):
+        item_category = self.get_category(category_id=category_id, category_name=category_name)
+        if not item_category:
+            return False
+
         try:
-            self.session.query(Category).filter_by(name=category_name.title()).one()
+            self.session.query(Item).filter_by(category_id=item_category.id).filter_by(name=item_name).one()
             return True
         except NoResultFound:
+            return False
+
+    def get_item(self, item_name, item_category_name=None, item_category_id=None):
+        if self.item_exists(item_name, category_id=item_category_id, category_name=item_category_name):
+            item_category = self.get_category(category_name=item_category_name, category_id=item_category_id)
+            return self.session.query(Item).filter_by(name=item_name, category=item_category).one()
+        return None
+
+    def category_exists(self, category_name=None, category_id=None):
+        if category_name:
+            try:
+                self.session.query(Category).filter_by(name=category_name.title()).one()
+                return True
+            except NoResultFound:
+                return False
+        elif category_id:
+            try:
+                self.session.query(Category).filter_by(id=category_id).one()
+                return True
+            except NoResultFound:
+                return False
+        else:
             return False
 
     def create_category(self, category_name):
@@ -56,7 +92,6 @@ class DBHelper(object):
         else:
             return None
 
-
     def user_exists(self, username):
         try:
             self.session.query(User).filter_by(name=username).one()
@@ -64,9 +99,12 @@ class DBHelper(object):
         except NoResultFound:
             return False
 
-    def get_category(self, category_name):
-        if self.category_exists(category_name):
-            return self.session.query(Category).filter_by(name=category_name.title()).one()
+    def get_category(self, category_name=None, category_id=None):
+        if self.category_exists(category_name=category_name, category_id=category_id):
+            if category_name:
+                return self.session.query(Category).filter_by(name=category_name.title()).one()
+            else:
+                return self.session.query(Category).filter_by(id=category_id).one()
 
 
 if __name__ == "__main__":
@@ -80,4 +118,6 @@ if __name__ == "__main__":
 
     pprint([category.serialize for category in helper.session.query(Category).all()])
     pprint([item.serialize for item in helper.session.query(Item).all()])
+
+    helper.update_item(helper.get_item(item_name='default item', item_category_name='default'), new_desc='this got updated!!!')
 

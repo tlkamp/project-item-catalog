@@ -79,6 +79,13 @@ def show_specific_categoryname(categoryname):
         flask.abort(404)
 
 
+@app.route('/catalog/<string:categoryname>/<string:itemname>/')
+def show_specific_item_page(categoryname, itemname):
+    helper = DBHelper()
+    item = helper.get_item(itemname, item_category_name=categoryname)
+    return flask.render_template('item.html', item=item)
+
+
 # Api routes
 @app.route('/api/items/all')
 def show_all_items():
