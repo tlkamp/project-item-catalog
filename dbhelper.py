@@ -40,6 +40,22 @@ class DBHelper(object):
             new_user = User(name=username)
             self.session.add(new_user)
             self.session.commit()
+        return self.session.query(User).filter_by(name=username).one()
+
+    def get_user(self, user_id=None, username=None):
+        if user_id:
+            try:
+                return self.session.query(User).filter_by(id=user_id).one()
+            except NoResultFound:
+                return None
+        elif username:
+            try:
+                return self.session.query(User).filter_by(name=username).one()
+            except NoResultFound:
+                return None
+        else:
+            return None
+
 
     def user_exists(self, username):
         try:

@@ -3,8 +3,11 @@ from dbmodel import Item, Category
 from dbhelper import DBHelper
 from requests_oauthlib import OAuth2Session
 import json
+import flask_login
 
 app = flask.Flask(__name__)
+login_manager = flask_login.LoginManager(app)
+login_manager.login_view = 'catalog'
 
 with open('client_secrets.json') as f:
     jsondata = json.load(f)
@@ -13,6 +16,13 @@ with open('client_secrets.json') as f:
 
 __authorization_uri = 'https://github.com/login/oauth/authorize'
 __token_uri = 'https://github.com/login/oauth/access_token'
+__gh_api_uri = 'https://api.github.com'
+
+
+@login_manager.user_loader
+def load_user(userid):
+    helper = DBHelper()
+    return helper.get_user(user_id=userid)
 
 
 # login stuff
@@ -27,9 +37,23 @@ def login():
 
 @app.route('/authcallback', methods=['GET'])
 def auth_callback():
+    helper = DBHelper()
+    if not flask_login.current_user.is_anonymous:
+        return flask.redirect(flask.url_for('catalog'))
     github = OAuth2Session(__client_id, state=flask.session['state'])
     token = github.fetch_token(__token_uri, client_secret=__client_secret, authorization_response=flask.request.url)
+    gh_username = github.get(__gh_api_uri+'/user').json()['login']
+    # create_user checks to see if the users exists before creating, so it's safe to always call this.
+    user = helper.create_user(gh_username)
+    flask_login.login_user(user, True)
     flask.session['oauth_token'] = token
+    return flask.redirect(flask.url_for('.catalog'))
+
+
+@app.route('/logout')
+def logout():
+    print('Logging out %s' % flask_login.current_user.name)
+    flask_login.logout_user()
     return flask.redirect(flask.url_for('.catalog'))
 
 
@@ -37,8 +61,6 @@ def auth_callback():
 @app.route('/', methods=['GET'])
 @app.route('/catalog', methods=['GET'])
 def catalog():
-    from pprint import pprint
-    pprint(vars(flask.request))
     helper = DBHelper()
     categories = helper.session.query(Category).all()
     items = helper.session.query(Item).order_by(Item.last_updated.desc()).all()

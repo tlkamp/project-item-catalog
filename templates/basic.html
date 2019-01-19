@@ -13,7 +13,12 @@
     <nav class="navbar sticky-top navbar-light bg-light ">
       <a class="navbar-brand">Item Catalog</a>
       <form class="form-inline">
-        <a class="btn btn-large btn-info" href={{url_for('.login')}}>Log in</a>
+        {% if current_user.is_authenticated %}
+          <a class="btn btn-large btn-info" href={{url_for('.logout')}}>Log out: {{ current_user.name }}</a>
+        {% else %}
+          <a class="btn btn-large btn-info" href={{url_for('.login')}}>Log in with GitHub</a>
+        {% endif %}
+
       </form>
     </nav>
 

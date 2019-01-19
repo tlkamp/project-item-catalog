@@ -3,11 +3,12 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from datetime import datetime
+from flask_login import UserMixin
 
 Base = declarative_base()
 
 
-class User(Base):
+class User(Base, UserMixin):
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
