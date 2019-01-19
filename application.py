@@ -52,7 +52,6 @@ def auth_callback():
 
 @app.route('/logout')
 def logout():
-    print('Logging out %s' % flask_login.current_user.name)
     flask_login.logout_user()
     return flask.redirect(flask.url_for('.catalog'))
 
