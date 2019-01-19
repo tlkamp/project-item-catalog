@@ -4,6 +4,10 @@
     <div class="card-body">
         <h4>{{ item.name }}</h4>
         <p class="card-text">{{ item.desc }}</p>
+        {% if current_user.is_authenticated and current_user.id == item.user_id %}
+            <a href="#" class="btn btn-outline-success">Edit item</a>
+            <a href="#" class="btn btn-outline-danger">Delete item</a>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
