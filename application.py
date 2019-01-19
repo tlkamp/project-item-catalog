@@ -111,6 +111,6 @@ def show_specific_category(categoryid):
 if __name__ == "__main__":
     import os
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-    app.secret_key = 'super secret key'
+    app.secret_key = os.urandom(32)
     app.debug = True
     app.run(host='0.0.0.0', port=3000)
