@@ -11,15 +11,13 @@ class User(Base):
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(80), nullable=False)
-    email = Column(String(250), nullable=False, unique=True, index=True)
+    name = Column(String(80), nullable=False, unique=True, index=True)
 
     @property
     def serialize(self):
         return {
             'id': self.id,
-            'name': self.name,
-            'email': self.email
+            'name': self.name
         }
 
 
