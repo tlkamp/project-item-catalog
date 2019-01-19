@@ -8,6 +8,7 @@ from flask_login import UserMixin
 Base = declarative_base()
 
 
+# use UserMixin from flask_login to get those sweet, sweet defaults
 class User(Base, UserMixin):
     __tablename__ = 'user'
 
