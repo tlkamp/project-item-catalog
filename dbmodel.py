@@ -13,7 +13,7 @@ class User(Base, UserMixin):
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(80), nullable=False, unique=True, index=True)
+    name = Column(String(32), nullable=False, unique=True, index=True)
 
     @property
     def serialize(self):
@@ -27,7 +27,7 @@ class Category(Base):
     __tablename__ = 'category'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False, unique=True)
+    name = Column(String(32), nullable=False, unique=True)
 
     @property
     def serialize(self):
@@ -41,7 +41,7 @@ class Item(Base):
     __tablename__ = 'item'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(128), nullable=False)
+    name = Column(String(32), nullable=False)
     desc = Column(String(250))
     last_updated = Column(DateTime, nullable=False, default=datetime.now, onupdate=datetime.now)
 
