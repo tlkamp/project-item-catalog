@@ -89,6 +89,16 @@ def show_specific_item_page(categoryname, itemname):
         flask.abort(404)
 
 
+@app.route('/catalog/<string:categoryname>/<string:itemname>/edit/')
+def edit_item(categoryname, itemname):
+    helper = DBHelper()
+    item = helper.get_item(itemname, item_category_name=categoryname)
+    if item:
+        return flask.render_template('edit-item.html', item=item)
+    else:
+        flask.abort(404)
+
+
 # Api routes
 @app.route('/api/items/all')
 def show_all_items():
