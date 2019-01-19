@@ -2,3 +2,4 @@ flask
 sqlalchemy
 pycodestyle
 requests-oauthlib
+flask-login

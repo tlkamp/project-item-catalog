@@ -6,3 +6,4 @@ dependencies:
   - pycodestyle
   - python=2.7.12
   - requests-oauthlib
+  - flask-login
