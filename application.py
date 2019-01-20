@@ -75,7 +75,6 @@ def show_specific_categoryname(categoryname):
         cat_items = helper.session.query(Item).filter_by(category_id=category.id).all()
         return flask.render_template('category.html', categories=categories, category=category, items=cat_items)
     else:
-        # If the category doesn't exist, return a 404.
         flask.abort(404)
 
 
