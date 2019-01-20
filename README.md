@@ -27,7 +27,9 @@ The second project in the Fullstack Web Developer Nanodegree.
     $ cd /vagrant/catalog/
     $ sudo pip install -r requirements.txt
     ```
-6. Do the database setup and run the application
+6. Create a file called `client_secrets.json` and paste the provided text into it.
+  * This file is required for GitHub (the OAuth2 provider) to verify this application.
+7. Do the database setup and run the application
     ```shell
     # setup the database
     $ python dbhelper.py
@@ -35,6 +37,6 @@ The second project in the Fullstack Web Developer Nanodegree.
     # run the flask app
     $ python application.py
     ```
-7. Navigate to [`http://localhost:8000/`](http://localhost:8000) in a browser.
+8. Navigate to [`http://localhost:8000/`](http://localhost:8000) in a browser.
 
 To stop the application, go back to your vagrant session and hit `control + c`.
