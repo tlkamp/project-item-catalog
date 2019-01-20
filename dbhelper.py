@@ -37,6 +37,7 @@ class DBHelper(object):
         if new_desc:
             item_to_update.desc = new_desc
         self.session.commit()
+        return item_to_update
 
     def __item_exists(self, item_name, category_id=None, category_name=None):
         item_category = self.get_category(category_id=category_id, category_name=category_name)

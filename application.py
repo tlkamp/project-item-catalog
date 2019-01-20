@@ -42,7 +42,7 @@ def auth_callback():
         return flask.redirect(flask.url_for('catalog'))
     github = OAuth2Session(__client_id, state=flask.session['state'])
     token = github.fetch_token(__token_uri, client_secret=__client_secret, authorization_response=flask.request.url)
-    gh_username = github.get(__gh_api_uri+'/user').json()['login']
+    gh_username = github.get(__gh_api_uri + '/user').json()['login']
     # create_user checks to see if the users exists before creating, so it's safe to always call this.
     user = helper.create_user(gh_username)
     flask_login.login_user(user, True)
@@ -109,8 +109,10 @@ def update_item(itemid):
     new_name = flask.request.form.get('item-name', item.name)
     new_desc = flask.request.form.get('item-description', item.desc)
     new_category = flask.request.form.get('item-category', item.category.name)
-    helper.update_item(item.id, new_name=new_name, new_category=new_category, new_desc=new_desc)
-    return flask.redirect(flask.url_for('show_specific_item_page', categoryname=new_category, itemname=new_name))
+    updated = helper.update_item(item.id, new_name=new_name, new_category=new_category, new_desc=new_desc)
+    return flask.redirect(
+        flask.url_for('show_specific_item_page', categoryname=updated.category.name, itemname=updated.name)
+    )
 
 
 @app.route('/catalog/add_item/', methods=['GET'])
@@ -174,6 +176,7 @@ def show_specific_category(categoryid):
 
 if __name__ == "__main__":
     import os
+
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     app.secret_key = os.urandom(32)
     app.debug = True
