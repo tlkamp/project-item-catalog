@@ -3,18 +3,18 @@
 {% if current_user.is_authenticated and current_user.id == item.user_id %}
 <h4>Edit item</h4>
 <div>
-  <form>
+  <form action="{{url_for('update_item', itemid=item.id)}}" method="POST">
     <div class="form-group">
       <label for="item-name">Item Name</label>
-      <input type="text" class="form-control" id="item-name" maxlength="32" aria-describedby="item-name-help" placeholder="{{ item.name }}">
+      <input type="text" class="form-control" name="item-name" id="item-name" maxlength="32" aria-describedby="item-name-help" placeholder="{{ item.name }}">
 
       <br/><br/>
       <label class="form-check-label" for="item-category">Item Category</label>
-      <input type="text" class="form-control" id="item-category" maxlength="32" placeholder="{{ item.category.name }}">
+      <input type="text" class="form-control" name="item-category" id="item-category" maxlength="32" placeholder="{{ item.category.name }}">
 
       <br/><br/>
       <label for="item-description">Item Description</label><br/>
-      <textarea id="item-description" rows="5" cols="50" maxlength="250" placeholder="{{ item.desc }}"></textarea>
+      <textarea id="item-description" name="item-description" rows="5" cols="50" maxlength="250" placeholder="{{ item.desc }}"></textarea>
 
     </div>
     <button type="submit" class="btn btn-success">Submit</button>

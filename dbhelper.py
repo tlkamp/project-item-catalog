@@ -25,7 +25,8 @@ class DBHelper(object):
             self.session.commit()
             return new_item
 
-    def update_item(self, item_to_update, new_name=None, new_category=None, new_desc=None):
+    def update_item(self, item_id, new_name=None, new_category=None, new_desc=None):
+        item_to_update = self.session.query(Item).filter_by(id=item_id).one()
         if new_name:
             item_to_update.name = new_name
         if new_category:
