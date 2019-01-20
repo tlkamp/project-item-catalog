@@ -168,7 +168,7 @@ def delete_item(categoryname, itemname):
     item = helper.get_item(itemname, item_category_name=categoryname)
     if item:
         if flask_login.current_user.is_authenticated \
-                and flask_login.current_user.id == item.id:
+                and flask_login.current_user.id == item.user.id:
             helper.delete_item(item)
             return flask.redirect(flask.url_for(
                 'show_specific_categoryname', categoryname=categoryname))
