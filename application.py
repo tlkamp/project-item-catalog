@@ -7,7 +7,6 @@ import flask_login
 
 app = flask.Flask(__name__)
 login_manager = flask_login.LoginManager(app)
-login_manager.login_view = 'catalog'
 
 with open('client_secrets.json') as f:
     jsondata = json.load(f)
@@ -136,7 +135,6 @@ def create():
 def delete_item(categoryname, itemname):
     helper = DBHelper()
     item = helper.get_item(itemname, item_category_name=categoryname)
-    # TODO: Make sure current logged in user owns the item
     if item:
         helper.delete_item(item)
         return flask.redirect(flask.url_for('show_specific_categoryname', categoryname=categoryname))
