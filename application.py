@@ -25,7 +25,8 @@ def load_user(userid):
 
 
 # login stuff
-# Followed example from: https://requests-oauthlib.readthedocs.io/en/latest/examples/real_world_example.html
+# Followed example from:
+# https://requests-oauthlib.readthedocs.io/en/latest/examples/real_world_example.html
 @app.route('/login')
 def login():
     github = OAuth2Session(__client_id)
@@ -40,9 +41,13 @@ def auth_callback():
     if not flask_login.current_user.is_anonymous:
         return flask.redirect(flask.url_for('catalog'))
     github = OAuth2Session(__client_id, state=flask.session['state'])
-    token = github.fetch_token(__token_uri, client_secret=__client_secret, authorization_response=flask.request.url)
+    token = github.fetch_token(
+        __token_uri,
+        client_secret=__client_secret,
+        authorization_response=flask.request.url)
     gh_username = github.get(__gh_api_uri + '/user').json()['login']
-    # create_user checks to see if the users exists before creating, so it's safe to always call this.
+    # create_user checks to see if the users exists before creating, so it's
+    # safe to always call this.
     user = helper.create_user(gh_username)
     flask_login.login_user(user, True)
     flask.session['oauth_token'] = token
@@ -62,7 +67,8 @@ def catalog():
     helper = DBHelper()
     categories = helper.session.query(Category).all()
     items = helper.session.query(Item).order_by(Item.last_updated.desc()).all()
-    return flask.render_template('index.html', categories=categories, items=items)
+    return flask.render_template(
+        'index.html', categories=categories, items=items)
 
 
 @app.route('/catalog/<string:categoryname>/')
@@ -71,8 +77,10 @@ def show_specific_categoryname(categoryname):
     categories = helper.session.query(Category).all()
     category = helper.get_category(categoryname)
     if category:
-        cat_items = helper.session.query(Item).filter_by(category_id=category.id).all()
-        return flask.render_template('category.html', categories=categories, category=category, items=cat_items)
+        cat_items = helper.session.query(Item).filter_by(
+            category_id=category.id).all()
+        return flask.render_template(
+            'category.html', categories=categories, category=category, items=cat_items)
     else:
         flask.abort(404)
 
@@ -101,7 +109,8 @@ def edit_item(categoryname, itemname):
         flask.abort(404)
 
 
-@app.route('/catalog/update_item/<int:itemid>/', methods=['PUT', 'PATCH', 'POST'])
+@app.route('/catalog/update_item/<int:itemid>/',
+           methods=['PUT', 'PATCH', 'POST'])
 @flask_login.login_required
 def update_item(itemid):
     # Get everything out of the form
@@ -113,9 +122,16 @@ def update_item(itemid):
     new_name = flask.request.form.get('item-name', item.name)
     new_desc = flask.request.form.get('item-description', item.desc)
     new_category = flask.request.form.get('item-category', item.category.name)
-    updated = helper.update_item(item.id, new_name=new_name, new_category=new_category, new_desc=new_desc)
+    updated = helper.update_item(
+        item.id,
+        new_name=new_name,
+        new_category=new_category,
+        new_desc=new_desc)
     return flask.redirect(
-        flask.url_for('show_specific_item_page', categoryname=updated.category.name, itemname=updated.name)
+        flask.url_for(
+            'show_specific_item_page',
+            categoryname=updated.category.name,
+            itemname=updated.name)
     )
 
 
@@ -132,8 +148,13 @@ def create():
     name = flask.request.form['item-name']
     category_name = flask.request.form['item-category']
     description = flask.request.form['item-description']
-    helper.create_item(name, description, category_name, flask_login.current_user.name)
-    return flask.redirect(flask.url_for('show_specific_item_page', categoryname=category_name, itemname=name))
+    helper.create_item(
+        name,
+        description,
+        category_name,
+        flask_login.current_user.name)
+    return flask.redirect(flask.url_for(
+        'show_specific_item_page', categoryname=category_name, itemname=name))
 
 
 @app.route('/catalog/<string:categoryname>/<string:itemname>/delete/')
@@ -144,7 +165,8 @@ def delete_item(categoryname, itemname):
     if item:
         if flask_login.current_user.is_authenticated and flask_login.current_user.id == item.id:
             helper.delete_item(item)
-            return flask.redirect(flask.url_for('show_specific_categoryname', categoryname=categoryname))
+            return flask.redirect(flask.url_for(
+                'show_specific_categoryname', categoryname=categoryname))
         else:
             flask.abort(401)
     else:

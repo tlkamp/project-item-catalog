@@ -43,7 +43,11 @@ class Item(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(32), nullable=False)
     desc = Column(String(250))
-    last_updated = Column(DateTime, nullable=False, default=datetime.now, onupdate=datetime.now)
+    last_updated = Column(
+        DateTime,
+        nullable=False,
+        default=datetime.now,
+        onupdate=datetime.now)
 
     category = relationship(Category)
     category_id = Column(Integer, ForeignKey('category.id'))
