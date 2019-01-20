@@ -75,10 +75,11 @@ class DBHelper(object):
             return False
 
     def create_category(self, category_name):
-        new_category = Category(name=category_name.title())
-        self.session.add(new_category)
-        self.session.commit()
-        return new_category
+        if category_name:
+            new_category = Category(name=category_name.title())
+            self.session.add(new_category)
+            self.session.commit()
+            return new_category
 
     def get_category(self, category_name=None, category_id=None):
         if self.__category_exists(category_name=category_name, category_id=category_id):
