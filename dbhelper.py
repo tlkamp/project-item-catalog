@@ -106,6 +106,10 @@ class DBHelper(object):
             else:
                 return self.session.query(Category).filter_by(id=category_id).one()
 
+    def delete_item(self, item_obj):
+        self.session.delete(item_obj)
+        self.session.commit()
+
 
 if __name__ == "__main__":
     default_user = 'default_user'
