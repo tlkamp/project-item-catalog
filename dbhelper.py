@@ -62,8 +62,9 @@ class DBHelper(object):
 
     def get_item(self, item_name, item_category_name=None,
                  item_category_id=None):
-        if self.__item_exists(
-                item_name, category_id=item_category_id, category_name=item_category_name):
+        if self.__item_exists(item_name,
+                              category_id=item_category_id,
+                              category_name=item_category_name):
             item_category = self.get_category(
                 category_name=item_category_name,
                 category_id=item_category_id)
@@ -157,6 +158,3 @@ if __name__ == "__main__":
         'something with a later modified date',
         'default',
         default_user)
-
-    pprint([category.serialize for category in helper.session.query(Category).all()])
-    pprint([item.serialize for item in helper.session.query(Item).all()])
