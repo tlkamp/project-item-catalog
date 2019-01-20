@@ -145,32 +145,11 @@ def delete_item(categoryname, itemname):
 
 
 # Api routes
-@app.route('/api/items/all')
+@app.route('/catalog.json')
 def show_all_items():
     helper = DBHelper()
     items = helper.session.query(Item).all()
     return flask.jsonify(items=[item.serialize for item in items])
-
-
-@app.route('/api/items/<int:itemid>')
-def show_specific_item(itemid):
-    helper = DBHelper()
-    item = helper.session.query(Item).filter_by(id=itemid).one()
-    return flask.jsonify(item=item.serialize)
-
-
-@app.route('/api/categories/all')
-def show_all_categories():
-    helper = DBHelper()
-    categories = helper.session.query(Category).all()
-    return flask.jsonify(categories=[category.serialize for category in categories])
-
-
-@app.route('/api/categories/<int:categoryid>')
-def show_specific_category(categoryid):
-    helper = DBHelper()
-    category = helper.session.query(Category).filter_by(id=categoryid).one()
-    return flask.jsonify(category=category.serialize)
 
 
 if __name__ == "__main__":
