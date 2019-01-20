@@ -23,6 +23,7 @@ class DBHelper(object):
             new_item = Item(name=name, desc=description, user_id=current_user.id, category_id=cat.id)
             self.session.add(new_item)
             self.session.commit()
+            return new_item
 
     def update_item(self, item_to_update, new_name=None, new_category=None, new_desc=None):
         if new_name:
@@ -70,6 +71,7 @@ class DBHelper(object):
         new_category = Category(name=category_name.title())
         self.session.add(new_category)
         self.session.commit()
+        return new_category
 
     def create_user(self, username):
         if not self.user_exists(username):
