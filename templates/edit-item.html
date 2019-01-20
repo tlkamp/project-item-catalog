@@ -3,6 +3,7 @@
 {% if current_user.is_authenticated and current_user.id == item.user_id %}
 <h4>Edit item</h4>
 <div>
+  <!-- I would normally use a PATCH method but HTML only supports GET and POST on forms. -->
   <form action="{{url_for('update_item', itemid=item.id)}}" method="POST">
     <div class="form-group">
       <label for="item-name">Item Name</label>
