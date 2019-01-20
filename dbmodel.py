@@ -58,7 +58,7 @@ class Item(Base):
             'name': self.name,
             'description': self.desc,
             'last_updated': self.last_updated.strftime('%Y-%m-%d %H:%M'),
-            'category': self.category_id,
+            'category': self.category.name,
             'user': self.user_id
         }
 

@@ -153,11 +153,17 @@ def delete_item(categoryname, itemname):
 
 # Api routes
 @app.route('/catalog.json')
-def show_all_items():
-    # TODO: Make this show the stuff like in the example
+def catalog_json():
     helper = DBHelper()
-    items = helper.session.query(Item).all()
-    return flask.jsonify(items=[item.serialize for item in items])
+    categories = helper.session.query(Category).all()
+    cat = [c.serialize for c in categories]
+
+    for entry in cat:
+        c_id = entry['id']
+        items = helper.session.query(Item).filter_by(category_id=c_id).all()
+        entry['items'] = [x.serialize for x in items]
+
+    return flask.jsonify(categories=cat)
 
 
 if __name__ == "__main__":
