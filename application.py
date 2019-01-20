@@ -109,13 +109,7 @@ def update_item(itemid):
     new_name = flask.request.form.get('item-name', item.name)
     new_desc = flask.request.form.get('item-description', item.desc)
     new_category = flask.request.form.get('item-category', item.category.name)
-
-    # Check to see if the category exists. If not, create it. Probably move to dbhelper.
-    if new_category and not helper.category_exists(category_name=new_category):
-        helper.create_category(category_name=new_category)
-
-    cat = helper.session.query(Category).filter_by(name=new_category.title()).one()
-    helper.update_item(item.id, new_name=new_name, new_category=cat, new_desc=new_desc)
+    helper.update_item(item.id, new_name=new_name, new_category=new_category, new_desc=new_desc)
     return flask.redirect(flask.url_for('show_specific_item_page', categoryname=new_category, itemname=new_name))
 
 

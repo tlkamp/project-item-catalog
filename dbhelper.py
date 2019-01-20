@@ -31,7 +31,9 @@ class DBHelper(object):
         if new_name:
             item_to_update.name = new_name
         if new_category:
-            item_to_update.category = new_category
+            cat = self.create_category(category_name=new_category)
+            if cat:
+                item_to_update.category = cat
         if new_desc:
             item_to_update.desc = new_desc
         self.session.commit()
