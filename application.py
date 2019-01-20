@@ -100,6 +100,17 @@ def edit_item(categoryname, itemname):
         flask.abort(404)
 
 
+@app.route('/catalog/create/', method=['POST'])
+@flask_login.login_required
+def create():
+    helper = DBHelper()
+    name = flask.request.form['item-name']
+    category_name = flask.request.form['item-category']
+    description = flask.request.form['item-description']
+    helper.create_item(name, description, category_name, flask_login.current_user.name)
+    return flask.redirect(flask.url_for('show_specific_item_page', categoryname=category_name, itemname=name))
+
+
 @app.route('/catalog/<string:categoryname>/<string:itemname>/delete/')
 @flask_login.login_required
 def delete_item(categoryname, itemname):
