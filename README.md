@@ -15,7 +15,7 @@ The second project in the Fullstack Web Developer Nanodegree.
 ## Running the App
 1. Ensure the [fullstack-nanodegree-vm project](https://github.com/udacity/fullstack-nanodegree-vm) has been downloaded.
 2. Ensure [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/) have been installed.
-3. Clone or download this repository and copy the file contents to the `vagrant/catalog/` directory in the `fullstack-nanodegree-vm project` mentioned in step 1.
+3. Clone or download this repository and copy the file contents to the `vagrant/catalog/` directory in the `fullstack-nanodegree-vm project` mentioned in step 1. <br/><br/>
 4. Bring up the vagrant machine and `ssh` into it.
    ```shell
     $ cd fullstack-nanodegree-vm/vagrant
@@ -27,8 +27,7 @@ The second project in the Fullstack Web Developer Nanodegree.
     $ cd /vagrant/catalog/
     $ sudo pip install -r requirements.txt
     ```
-6. Create a file called `client_secrets.json` and paste the provided text into it.
-  * This file is required for GitHub (the OAuth2 provider) to verify this application.
+6. Create a file called `client_secrets.json` and paste the provided text into it. This file is required for GitHub (the OAuth2 provider) to verify this application. <br/><br/>
 7. Do the database setup and run the application
     ```shell
     # setup the database
