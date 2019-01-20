@@ -199,4 +199,4 @@ if __name__ == "__main__":
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     app.secret_key = os.urandom(32)
     app.debug = True
-    app.run(host='0.0.0.0', port=3000)
+    app.run(host='0.0.0.0', port=8000)
