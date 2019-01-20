@@ -79,8 +79,10 @@ def show_specific_categoryname(categoryname):
     if category:
         cat_items = helper.session.query(Item).filter_by(
             category_id=category.id).all()
-        return flask.render_template(
-            'category.html', categories=categories, category=category, items=cat_items)
+        return flask.render_template('category.html',
+                                     categories=categories,
+                                     category=category,
+                                     items=cat_items)
     else:
         flask.abort(404)
 
@@ -101,7 +103,8 @@ def edit_item(categoryname, itemname):
     helper = DBHelper()
     item = helper.get_item(itemname, item_category_name=categoryname)
     if item:
-        if flask_login.current_user.is_authenticated and flask_login.current_user.id == item.user.id:
+        if flask_login.current_user.is_authenticated and \
+                flask_login.current_user.id == item.user.id:
             return flask.render_template('edit-item.html', item=item)
         else:
             flask.abort(401)
@@ -116,7 +119,8 @@ def update_item(itemid):
     # Get everything out of the form
     helper = DBHelper()
     item = helper.session.query(Item).filter_by(id=itemid).one()
-    if not (flask_login.current_user.is_authenticated and flask_login.current_user.id == item.user.id):
+    if not (flask_login.current_user.is_authenticated and
+            flask_login.current_user.id == item.user.id):
         return flask.abort(401)
 
     new_name = flask.request.form.get('item-name', item.name)
@@ -163,7 +167,8 @@ def delete_item(categoryname, itemname):
     helper = DBHelper()
     item = helper.get_item(itemname, item_category_name=categoryname)
     if item:
-        if flask_login.current_user.is_authenticated and flask_login.current_user.id == item.id:
+        if flask_login.current_user.is_authenticated \
+                and flask_login.current_user.id == item.id:
             helper.delete_item(item)
             return flask.redirect(flask.url_for(
                 'show_specific_categoryname', categoryname=categoryname))
