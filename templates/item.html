@@ -4,10 +4,33 @@
     <div class="card-body">
         <h4>{{ item.name }}</h4>
         <p class="card-text">{{ item.desc }}</p>
-        {% if current_user.is_authenticated and current_user.id == item.user_id %}
-            <a href="#" class="btn btn-outline-success">Edit item</a>
-            <a href="#" class="btn btn-outline-danger">Delete item</a>
+        {% if current_user.is_authenticated and current_user.id == item.user_id % }
+            <a href="{{url_for('edit_item', categoryname=item.category.name, itemname=item.name)}}" class="btn btn-outline-success">Edit item</a>
+            <button class="btn btn-outline-danger" data-toggle="modal" data-target="#confirm-dialog">Delete item</button>
         {% endif %}
+    </div>
+    <div class="modal fade" id="confirm-dialog" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="modal-outer" role="document">
+            <div class="modal-content" id="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Confirm Deletion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <strong>Are you sure you want to delete: </strong><br/>
+                        {{item.name}} -- {{item.category.name}}? <br/>
+                        <small><em>This action cannot be undone.</em></small>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger" href="{{url_for('delete_item', itemname=item.name, categoryname=item.category.name)}}">Yes, delete it!</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
