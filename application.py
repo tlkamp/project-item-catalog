@@ -100,7 +100,13 @@ def edit_item(categoryname, itemname):
         flask.abort(404)
 
 
-@app.route('/catalog/create/', method=['POST'])
+@app.route('/catalog/add_item/', methods=['GET'])
+@flask_login.login_required
+def add_item():
+    return flask.render_template('add-item.html')
+
+
+@app.route('/catalog/create/', methods=['POST'])
 @flask_login.login_required
 def create():
     helper = DBHelper()
