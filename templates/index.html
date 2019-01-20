@@ -15,7 +15,9 @@
 <ul>
     {% for item in items %}
     <li>
-        <h5><a href="#">{{item.name}}</a> -- <span class="category">({{item.category.name}})</span></h5>
+        <h5>
+            <a href="{{url_for('show_specific_item_page', categoryname=item.category.name, itemname=item.name)}}">{{item.name}}</a> -- <span class="category">({{item.category.name}})</span>
+        </h5>
     </li>
     {% endfor %}
 </ul>
