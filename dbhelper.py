@@ -2,7 +2,6 @@ from dbmodel import User, Category, Item, Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
-from pprint import pprint
 
 
 class DBHelper(object):
@@ -146,7 +145,6 @@ if __name__ == "__main__":
     default_user = 'default_user'
     helper = DBHelper()
     helper.create_user(default_user)
-    pprint([user.serialize for user in helper.session.query(User).all()])
 
     helper.create_item(
         'default item',
@@ -158,3 +156,5 @@ if __name__ == "__main__":
         'something with a later modified date',
         'default',
         default_user)
+
+    print('Ready to go!')

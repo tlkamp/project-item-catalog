@@ -4,6 +4,7 @@ dependencies:
   - flask
   - sqlalchemy
   - pycodestyle
+  - autopep8
   - python=2.7.12
   - requests-oauthlib
   - flask-login
