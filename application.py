@@ -90,6 +90,7 @@ def show_specific_item_page(categoryname, itemname):
 
 
 @app.route('/catalog/<string:categoryname>/<string:itemname>/edit/')
+@flask_login.login_required
 def edit_item(categoryname, itemname):
     helper = DBHelper()
     item = helper.get_item(itemname, item_category_name=categoryname)
@@ -97,6 +98,19 @@ def edit_item(categoryname, itemname):
         return flask.render_template('edit-item.html', item=item)
     else:
         flask.abort(404)
+
+
+@app.route('/catalog/<string:categoryname>/<string:itemname>/delete/')
+@flask_login.login_required
+def delete_item(categoryname, itemname):
+    helper = DBHelper()
+    item = helper.get_item(itemname, item_category_name=categoryname)
+    # TODO: Make sure current logged in user owns the item
+    if item:
+        helper.delete_item(item)
+        return flask.redirect(flask.url_for('show_specific_categoryname', categoryname=categoryname))
+    else:
+        flask.abort(500)
 
 
 # Api routes
