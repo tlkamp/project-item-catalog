@@ -47,7 +47,7 @@ def auth_callback():
     user = helper.create_user(gh_username)
     flask_login.login_user(user, True)
     flask.session['oauth_token'] = token
-    return flask.redirect(flask.url_for('.catalog'))
+    return flask.redirect(flask.url_for('catalog'))
 
 
 @app.route('/logout')
