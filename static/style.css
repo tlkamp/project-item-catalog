@@ -8,7 +8,7 @@ div {
   padding: 0.5em 1em;
   background-color: white;
   width: 100%;
-  height: 100%;
+
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -36,4 +36,13 @@ a {
 span.category {
   color: #e17055;
   font-style: italic;
+}
+
+#confirm-dialog, #modal-outer {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#modal-outer {
+    height: 20% !important;
+    width: 50%;
 }

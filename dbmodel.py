@@ -3,15 +3,17 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from datetime import datetime
+from flask_login import UserMixin
 
 Base = declarative_base()
 
 
-class User(Base):
+# use UserMixin from flask_login to get those sweet, sweet defaults
+class User(Base, UserMixin):
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(80), nullable=False, unique=True, index=True)
+    name = Column(String(32), nullable=False, unique=True, index=True)
 
     @property
     def serialize(self):
@@ -25,7 +27,7 @@ class Category(Base):
     __tablename__ = 'category'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False, unique=True)
+    name = Column(String(32), nullable=False, unique=True)
 
     @property
     def serialize(self):
@@ -39,9 +41,13 @@ class Item(Base):
     __tablename__ = 'item'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(128), nullable=False)
+    name = Column(String(32), nullable=False)
     desc = Column(String(250))
-    last_updated = Column(DateTime, nullable=False, default=datetime.now, onupdate=datetime.now)
+    last_updated = Column(
+        DateTime,
+        nullable=False,
+        default=datetime.now,
+        onupdate=datetime.now)
 
     category = relationship(Category)
     category_id = Column(Integer, ForeignKey('category.id'))
@@ -56,7 +62,7 @@ class Item(Base):
             'name': self.name,
             'description': self.desc,
             'last_updated': self.last_updated.strftime('%Y-%m-%d %H:%M'),
-            'category': self.category_id,
+            'category': self.category.name,
             'user': self.user_id
         }
 

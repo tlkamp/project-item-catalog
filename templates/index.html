@@ -1,50 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "dual-layout.html" %}
+{% block sidebar %}
+<h2>Categories</h2>
+<ul>
+  {% for category in categories %}
+  <li>
+    <h5><a href="{{url_for('show_specific_categoryname', categoryname=category.name)}}">{{category.name}}</a></h5>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
 
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Item Catalog</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="static/style.css">
-  </head>
-
-  <body>
-    <nav class="navbar sticky-top navbar-light bg-light ">
-      <a class="navbar-brand">Item Catalog</a>
-      <form class="form-inline">
-        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Log in</button>
-      </form>
-    </nav>
-
-    <div id="outer" class="container">
-      <div class="row">
-        <div id="sidebar" class="col-sm-3">
-          <h2>Categories</h2>
-            <ul>
-              {% for category in categories %}
-              <li>
-                <h5><a href="#">{{category.name}}</a></h5>
-              </li>
-              {% endfor %}
-            </ul>
-        </div>
-        <main id="recent-items" class="col">
-          <h2>Most Recent Items</h2>
-          <ul>
-            {% for item in items %}
-            <li>
-              <h5><a href="#">{{item.name}}</a> -- <span class="category">({{item.category.name}})</span></h5>
-            </li>
-            {% endfor %}
-          </ul>
-        </main>
-      </div>
-    </div>
-
-  </body>
-
-  <!-- Bootstrap resources -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-</html>
+{% block maincontent %}
+<h2>Most Recent Items</h2>
+<ul>
+    {% for item in items %}
+    <li>
+        <h5>
+            <a href="{{url_for('show_specific_item_page', categoryname=item.category.name, itemname=item.name)}}">{{item.name}}</a> -- <span class="category">({{item.category.name}})</span>
+        </h5>
+    </li>
+    {% endfor %}
+</ul>
+{% if current_user.is_authenticated %}
+<a class="btn btn-outline-success" href="{{url_for('add_item')}}">Add item</a>
+{% endif %}
+{% endblock %}
