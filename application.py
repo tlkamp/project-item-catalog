@@ -93,7 +93,10 @@ def edit_item(categoryname, itemname):
     helper = DBHelper()
     item = helper.get_item(itemname, item_category_name=categoryname)
     if item:
-        return flask.render_template('edit-item.html', item=item)
+        if flask_login.current_user.is_authenticated and flask_login.current_user.id == item.user.id:
+            return flask.render_template('edit-item.html', item=item)
+        else:
+            flask.abort(401)
     else:
         flask.abort(404)
 
@@ -104,6 +107,9 @@ def update_item(itemid):
     # Get everything out of the form
     helper = DBHelper()
     item = helper.session.query(Item).filter_by(id=itemid).one()
+    if not (flask_login.current_user.is_authenticated and flask_login.current_user.id == item.user.id):
+        return flask.abort(401)
+
     new_name = flask.request.form.get('item-name', item.name)
     new_desc = flask.request.form.get('item-description', item.desc)
     new_category = flask.request.form.get('item-category', item.category.name)
@@ -136,8 +142,11 @@ def delete_item(categoryname, itemname):
     helper = DBHelper()
     item = helper.get_item(itemname, item_category_name=categoryname)
     if item:
-        helper.delete_item(item)
-        return flask.redirect(flask.url_for('show_specific_categoryname', categoryname=categoryname))
+        if flask_login.current_user.is_authenticated and flask_login.current_user.id == item.id:
+            helper.delete_item(item)
+            return flask.redirect(flask.url_for('show_specific_categoryname', categoryname=categoryname))
+        else:
+            flask.abort(401)
     else:
         flask.abort(500)
 

@@ -133,5 +133,4 @@ if __name__ == "__main__":
     pprint([category.serialize for category in helper.session.query(Category).all()])
     pprint([item.serialize for item in helper.session.query(Item).all()])
 
-    helper.update_item(helper.get_item(item_name='default item', item_category_name='default'), new_desc='this got updated!!!')
 
