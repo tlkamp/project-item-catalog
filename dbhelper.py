@@ -75,7 +75,7 @@ class DBHelper(object):
             return False
 
     def create_category(self, category_name):
-        if category_name:
+        if category_name and not self.__category_exists(category_name=category_name):
             new_category = Category(name=category_name.title())
             self.session.add(new_category)
             self.session.commit()
