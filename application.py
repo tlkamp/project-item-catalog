@@ -4,6 +4,7 @@ from dbhelper import DBHelper
 from requests_oauthlib import OAuth2Session
 import json
 import flask_login
+from sqlalchemy.orm.exc import NoResultFound
 
 app = flask.Flask(__name__)
 login_manager = flask_login.LoginManager(app)
@@ -179,7 +180,7 @@ def delete_item(categoryname, itemname):
 
 
 # Api routes
-@app.route('/catalog.json')
+@app.route('/catalog/json/')
 def catalog_json():
     helper = DBHelper()
     categories = helper.session.query(Category).all()
@@ -191,6 +192,16 @@ def catalog_json():
         entry['items'] = [x.serialize for x in items]
 
     return flask.jsonify(categories=cat)
+
+
+@app.route('/catalog/json/item/<int:itemid>')
+def item_json(itemid):
+    helper = DBHelper()
+    try:
+        item = helper.session.query(Item).filter_by(id=itemid).one()
+        return flask.jsonify(item=item.serialize)
+    except NoResultFound:
+        return flask.make_response(flask.jsonify({'message': 'Not found'}), 404)
 
 
 if __name__ == "__main__":
