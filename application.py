@@ -153,7 +153,8 @@ def create():
     name = flask.request.form['item-name']
     category_name = flask.request.form['item-category']
     if not name or not category_name:
-        return flask.abort(400, 'Item Name and Item Category are required fields.')
+        return flask.abort(400,
+                           'Item Name and Item Category are required fields.')
     description = flask.request.form['item-description']
     helper.create_item(
         name,
@@ -203,7 +204,9 @@ def item_json(itemid):
         item = helper.session.query(Item).filter_by(id=itemid).one()
         return flask.jsonify(item=item.serialize)
     except NoResultFound:
-        return flask.make_response(flask.jsonify({'message': 'Not found'}), 404)
+        return flask.make_response(
+            flask.jsonify({'message': 'Not found'}),
+            404)
 
 
 if __name__ == "__main__":
