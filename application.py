@@ -104,6 +104,9 @@ def edit_item(categoryname, itemname):
     helper = DBHelper()
     item = helper.get_item(itemname, item_category_name=categoryname)
     if item:
+        # Even though the page only renders for auth'ed users,
+        # make sure they're not trying to bypass the page
+        # by entering the url directly.
         if flask_login.current_user.is_authenticated and \
                 flask_login.current_user.id == item.user.id:
             return flask.render_template('edit-item.html', item=item)
@@ -114,12 +117,16 @@ def edit_item(categoryname, itemname):
 
 
 @app.route('/catalog/update_item/<int:itemid>/',
+           # any of these methods would be acceptable.
            methods=['PUT', 'PATCH', 'POST'])
 @flask_login.login_required
 def update_item(itemid):
     # Get everything out of the form
     helper = DBHelper()
     item = helper.session.query(Item).filter_by(id=itemid).one()
+    # Even though the page only renders for auth'ed users,
+    # make sure they're not trying to bypass the page
+    # by entering the url directly.
     if not (flask_login.current_user.is_authenticated and
             flask_login.current_user.id == item.user.id):
         return flask.abort(401)
@@ -152,6 +159,9 @@ def create():
     helper = DBHelper()
     name = flask.request.form['item-name']
     category_name = flask.request.form['item-category']
+    # Even though there is html validation on the form,
+    # users can use devtools to disable it and send
+    # empty forms. make sure they haven't done this.
     if not name or not category_name:
         return flask.abort(400,
                            'Item Name and Item Category are required fields.')
@@ -171,6 +181,9 @@ def delete_item(categoryname, itemname):
     helper = DBHelper()
     item = helper.get_item(itemname, item_category_name=categoryname)
     if item:
+        # Even though the page only renders for auth'ed users,
+        # make sure they're not trying to bypass the page
+        # by entering the url directly.
         if flask_login.current_user.is_authenticated \
                 and flask_login.current_user.id == item.user.id:
             helper.delete_item(item)
@@ -211,7 +224,9 @@ def item_json(itemid):
 
 if __name__ == "__main__":
     import os
-
+    # requests-oauthlib will throw an exception
+    # if not using https. disable the https requirement
+    # for the development server.
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     app.secret_key = os.urandom(32)
     app.debug = True
