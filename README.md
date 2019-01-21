@@ -36,6 +36,82 @@ The second project in the Fullstack Web Developer Nanodegree.
     # run the flask app
     $ python application.py
     ```
-8. Navigate to [`http://localhost:8000/`](http://localhost:8000) in a browser.
+8. Navigate to [`http://localhost:8000/`](http://localhost:8000) in a browser. To interact with the json endpoints, please use the following:
+  * [`http://localhost:8000/catalog/json`](http://localhost:8000/catalog/json/) for a full catalog listing
+  * [`http://localhost:8000/catalog/json/item/<item id number>`](http://localhost:8000/catalog/json/item/1) for informaiton about a specific database item.
+  
+using curl, the output looks like this:
+
+**An item that does not exist**
+```shell
+$ curl -i http://localhost:8000/catalog/json/item/3
+HTTP/1.0 404 NOT FOUND
+Content-Type: application/json
+Content-Length: 29
+Server: Werkzeug/0.14.1 Python/3.6.5
+Date: Mon, 21 Jan 2019 01:05:02 GMT
+
+{
+  "message": "Not found"
+}
+```
+
+**An individual item**
+```shell
+$ curl -i http://localhost:8000/catalog/json/item/2
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 209
+Server: Werkzeug/0.14.1 Python/3.6.5
+Date: Mon, 21 Jan 2019 01:05:00 GMT
+
+{
+  "item": {
+    "category": "Default",
+    "description": "something with a later modified date",
+    "id": 2,
+    "last_updated": "2019-01-20 13:31",
+    "name": "another default",
+    "user": 1
+  }
+}
+```
+
+**The full catalog listing**
+```shell
+$ curl -i http://localhost:8000/catalog/json/
+HTTP/1.0 200 OK
+Content-Type: application/json
+Content-Length: 580
+Server: Werkzeug/0.14.1 Python/3.6.5
+Date: Mon, 21 Jan 2019 01:05:06 GMT
+
+{
+  "categories": [
+    {
+      "id": 1,
+      "items": [
+        {
+          "category": "Default",
+          "description": "something to test with",
+          "id": 1,
+          "last_updated": "2019-01-20 13:31",
+          "name": "default item",
+          "user": 1
+        },
+        {
+          "category": "Default",
+          "description": "something with a later modified date",
+          "id": 2,
+          "last_updated": "2019-01-20 13:31",
+          "name": "another default",
+          "user": 1
+        }
+      ],
+      "name": "Default"
+    }
+  ]
+}
+```
 
 To stop the application, go back to your vagrant session and hit `control + c`.
