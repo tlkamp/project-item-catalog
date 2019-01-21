@@ -152,6 +152,8 @@ def create():
     helper = DBHelper()
     name = flask.request.form['item-name']
     category_name = flask.request.form['item-category']
+    if not name or not category_name:
+        return flask.abort(400, 'Item Name and Item Category are required fields.')
     description = flask.request.form['item-description']
     helper.create_item(
         name,
