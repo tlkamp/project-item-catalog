@@ -1,0 +1,2 @@
+KEY=$(python -c "import os, base64; print b'%s' % base64.b64encode(os.urandom(24))")
+DB_STRING="postgresql:///catalog"
