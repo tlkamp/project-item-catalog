@@ -1,0 +1,19 @@
+#/etc/systemd/system/gunicorn.service
+
+[Unit]
+Description=gunicorn service
+
+[Service]
+EnvironmentFile=/run/gunicorn/catalog
+PIDFile=/run/gunicorn/pid
+WorkingDirectory=/var/www/tlkamp.com/
+User=catalog
+Group=catalog
+RuntimeDirectory=/var/www/tlkamp.com/
+ExecStart=/usr/bin/gunicorn --pid /run/gunicorn/pid --log-level info -w 4 -b 127.0.0.1:8080 application:app
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
