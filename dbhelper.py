@@ -1,4 +1,4 @@
-from dbmodel import User, Category, Item, Base
+from dbmodel import User, Category, Item, Base, db_string
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
@@ -9,7 +9,7 @@ class DBHelper(object):
     Helper class to abstract the database session
     away from the primary api/webapp logic.
     '''
-    engine = create_engine('sqlite:///catalog.db')
+    engine = create_engine(db_string)
     Base.metadata.bind = engine
     __DBSession = sessionmaker(bind=engine)
 
