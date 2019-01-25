@@ -21,6 +21,8 @@ The database backend is [PosgreSQL](https://www.postgresql.org/).
 
 HTTPS is enabled thanks to [LetsEncrypt](https://letsencrypt.org/).
 
+All relevant configuration can be found in the [`server_config`](server_config/) directory.
+
 ## Running the App Locally
 1. Ensure the [fullstack-nanodegree-vm project](https://github.com/udacity/fullstack-nanodegree-vm) has been downloaded.
 2. Ensure [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/) have been installed.
