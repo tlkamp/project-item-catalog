@@ -7,6 +7,7 @@ The second project in the Fullstack Web Developer Nanodegree.
 * [sqlalchemy](https://www.sqlalchemy.org/) - the ORM library for the underlying database.
 * [requests-oauthlib](https://requests-oauthlib.readthedocs.io/en/latest/) - for handling OAuth2 flows.
 * [flask-login](https://flask-login.readthedocs.io/en/latest/) - for handling session management and protecting views.
+* [psycopg2](http://initd.org/psycopg/) - the PostgreSQL DB API for Python.
 
 ### Dev Dependencies
 * [pycodestyle](https://pycodestyle.readthedocs.io/en/latest/) - for checking code style practices.
