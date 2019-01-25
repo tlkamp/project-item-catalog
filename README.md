@@ -21,6 +21,8 @@ The database backend is [PosgreSQL](https://www.postgresql.org/).
 
 HTTPS is enabled thanks to [LetsEncrypt](https://letsencrypt.org/).
 
+The server can be accessed via `ssh` on port `2200` (`ssh -i /path/to/id/file user@tlkamp.com -p 2200`).
+
 All relevant configuration can be found in the [`server_config`](server_config/) directory.
 
 ## Running the App Locally
