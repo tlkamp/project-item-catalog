@@ -2,5 +2,6 @@ flask
 sqlalchemy
 pycodestyle
 autopep8
+psycopg2
 requests-oauthlib
 flask-login

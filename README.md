@@ -7,12 +7,21 @@ The second project in the Fullstack Web Developer Nanodegree.
 * [sqlalchemy](https://www.sqlalchemy.org/) - the ORM library for the underlying database.
 * [requests-oauthlib](https://requests-oauthlib.readthedocs.io/en/latest/) - for handling OAuth2 flows.
 * [flask-login](https://flask-login.readthedocs.io/en/latest/) - for handling session management and protecting views.
+* [psycopg2](http://initd.org/psycopg/) - the PostgreSQL DB API for Python.
 
 ### Dev Dependencies
 * [pycodestyle](https://pycodestyle.readthedocs.io/en/latest/) - for checking code style practices.
 * [autopep8](https://pypi.org/project/autopep8/) - for automatically fixing issues reported by `pycodestyle`.
 
-## Running the App
+## Deployment Details
+The application is deployed at [www.tlkamp.com](https://www.tlkamp.com) using [nginx](https://www.nginx.com/) as a
+reverse proxy to a [gunicorn](https://gunicorn.org/) `wsgi` application server enabled via `systemd`.
+
+The database backend is [PosgreSQL](https://www.postgresql.org/).
+
+HTTPS is enabled thanks to [LetsEncrypt](https://letsencrypt.org/).
+
+## Running the App Locally
 1. Ensure the [fullstack-nanodegree-vm project](https://github.com/udacity/fullstack-nanodegree-vm) has been downloaded.
 2. Ensure [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/) have been installed.
 3. Clone or download this repository and copy the file contents to the `vagrant/catalog/` directory in the `fullstack-nanodegree-vm project` mentioned in step 1. <br/><br/>
@@ -36,11 +45,15 @@ The second project in the Fullstack Web Developer Nanodegree.
     # run the flask app
     $ python application.py
     ```
-8. Navigate to [`http://localhost:8000/`](http://localhost:8000) in a browser. To interact with the json endpoints, please use the following:
+8. To stop the application, go back to your vagrant session and hit `control + c`.
+  
+## Interacting With the Application
+If you are using the deployed version of the application, please substitute the references to `localhost:8000` with 
+`https://tlkamp.com`.
+
+Navigate to [`http://localhost:8000/`](http://localhost:8000) in a browser. To interact with the json endpoints, please use the following:
   * [`http://localhost:8000/catalog/json`](http://localhost:8000/catalog/json/) for a full catalog listing
   * [`http://localhost:8000/catalog/json/item/<item id number>`](http://localhost:8000/catalog/json/item/1) for informaiton about a specific database item.
-  
-using curl, the output looks like this:
 
 **An item that does not exist**
 ```shell
@@ -113,5 +126,3 @@ Date: Mon, 21 Jan 2019 01:05:06 GMT
   ]
 }
 ```
-
-To stop the application, go back to your vagrant session and hit `control + c`.

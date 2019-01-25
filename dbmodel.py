@@ -4,6 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from datetime import datetime
 from flask_login import UserMixin
+import os
 
 Base = declarative_base()
 
@@ -68,5 +69,6 @@ class Item(Base):
 
 
 # We always want the metadata created if it hasn't been.
-engine = create_engine('sqlite:///catalog.db')
+db_string = os.environ.get('DB_STRING')
+engine = create_engine(db_string)
 Base.metadata.create_all(engine)
