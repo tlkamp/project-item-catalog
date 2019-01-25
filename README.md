@@ -21,7 +21,7 @@ The database backend is [PosgreSQL](https://www.postgresql.org/).
 
 HTTPS is enabled thanks to [LetsEncrypt](https://letsencrypt.org/).
 
-## Running the App - Local
+## Running the App Locally
 1. Ensure the [fullstack-nanodegree-vm project](https://github.com/udacity/fullstack-nanodegree-vm) has been downloaded.
 2. Ensure [VirtualBox](https://www.virtualbox.org/) and [Vagrant](https://www.vagrantup.com/) have been installed.
 3. Clone or download this repository and copy the file contents to the `vagrant/catalog/` directory in the `fullstack-nanodegree-vm project` mentioned in step 1. <br/><br/>
