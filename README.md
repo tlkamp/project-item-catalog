@@ -17,11 +17,14 @@ The second project in the Fullstack Web Developer Nanodegree.
 The application is deployed at [www.tlkamp.com](https://www.tlkamp.com) using [nginx](https://www.nginx.com/) as a
 reverse proxy to a [gunicorn](https://gunicorn.org/) `wsgi` application server enabled via `systemd`.
 
-The database backend is [PostgreSQL](https://www.postgresql.org/).
-
-HTTPS is enabled thanks to [LetsEncrypt](https://letsencrypt.org/).
-
 The server can be accessed via `ssh` on port `2200` (`ssh -i /path/to/id/file user@tlkamp.com -p 2200`).
+
+#### Software Installed
+* [Python 2.7](https://docs.python.org/2.7/) and [pip](https://pypi.org/project/pip/)
+* [Nginx](https://www.nginx.com/) (web server / reverse proxy)
+* [Gunicorn](https://gunicorn.org/) (`wsgi` application server)
+* [PostgreSQL]([PostgreSQL](https://www.postgresql.org/).) (database backend)
+* [Certbot + LetsEncrypt](https://letsencrypt.org/)
 
 All relevant configuration can be found in the [`server_config`](server_config/) directory.
 
