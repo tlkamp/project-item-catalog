@@ -32,7 +32,8 @@ The server can be accessed via `ssh` on port `2200` (`ssh -i /path/to/id/file us
   * Because peer authentication is used for connecting to the database, the corresponding system user (`catalog`) is not permitted to log into the server at all. Any attempts will result in a "This account is currently not available" message.
 * Gunicorn is the `wsgi` server used to serve the application. It only listens to requests from `localhost:8080`. It runs the application as the `catalog` system user.
   * Gunicorn is [configured](server_config/mygunicorn.service) as a [`systemd`](http://manpages.ubuntu.com/manpages/bionic/man1/systemd.1.html) service. This enables startup on boot of the server, and status checks/stops/starts can be handled through typical `systemctl/service` commands. Logs are sent to `journal` automatically by `systemd`.
-* Nginx is configured as the primary web server and reverse proxy.
+* Nginx is [configured](server_config/default) as the primary web server and reverse proxy.
+  * Nginx listens for requests sent to `tlkamp.com` on ports `80`/`443` and routes them to the Gunicorn server and serves gunicorn's responses back to the user.
 
 All relevant configuration can be found in the [`server_config`](server_config/) directory.
 
