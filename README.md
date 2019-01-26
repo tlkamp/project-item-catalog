@@ -13,7 +13,7 @@ The second project in the Fullstack Web Developer Nanodegree.
 * [pycodestyle](https://pycodestyle.readthedocs.io/en/latest/) - for checking code style practices.
 * [autopep8](https://pypi.org/project/autopep8/) - for automatically fixing issues reported by `pycodestyle`.
 
-## Deployment Details
+## Server Configuration
 The application is deployed at [www.tlkamp.com](https://www.tlkamp.com) using [nginx](https://www.nginx.com/) as a
 reverse proxy to a [gunicorn](https://gunicorn.org/) `wsgi` application server enabled via `systemd`.
 
