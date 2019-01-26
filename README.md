@@ -26,6 +26,11 @@ The server can be accessed via `ssh` on port `2200` (`ssh -i /path/to/id/file us
 * [PostgreSQL]([PostgreSQL](https://www.postgresql.org/).) (database backend)
 * [Certbot + LetsEncrypt](https://letsencrypt.org/)
 
+#### Configuration
+* Gunicorn is the `wsgi` server used to serve the application.
+  * Gunicorn is [configured](server_config/mygunicorn.service#L13) to only serve requests to `localhost:8080` using 4 web workers.
+* Nginx is configured as the primary web server and reverse proxy.
+
 All relevant configuration can be found in the [`server_config`](server_config/) directory.
 
 ## Running the App Locally
