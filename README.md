@@ -17,7 +17,7 @@ The second project in the Fullstack Web Developer Nanodegree.
 The application is deployed at [www.tlkamp.com](https://www.tlkamp.com) using [nginx](https://www.nginx.com/) as a
 reverse proxy to a [gunicorn](https://gunicorn.org/) `wsgi` application server enabled via `systemd`.
 
-The database backend is [PosgreSQL](https://www.postgresql.org/).
+The database backend is [PostgreSQL](https://www.postgresql.org/).
 
 HTTPS is enabled thanks to [LetsEncrypt](https://letsencrypt.org/).
 
@@ -50,9 +50,9 @@ All relevant configuration can be found in the [`server_config`](server_config/)
     $ python application.py
     ```
 8. To stop the application, go back to your vagrant session and hit `control + c`.
-  
+
 ## Interacting With the Application
-If you are using the deployed version of the application, please substitute the references to `localhost:8000` with 
+If you are using the deployed version of the application, please substitute the references to `localhost:8000` with
 `https://tlkamp.com`.
 
 Navigate to [`http://localhost:8000/`](http://localhost:8000) in a browser. To interact with the json endpoints, please use the following:
