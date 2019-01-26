@@ -23,7 +23,7 @@ The server can be accessed via `ssh` on port `2200` (`ssh -i /path/to/id/file us
 * [Python 2.7](https://docs.python.org/2.7/) and [pip](https://pypi.org/project/pip/)
 * [Nginx](https://www.nginx.com/) (web server / reverse proxy)
 * [Gunicorn](https://gunicorn.org/) (`wsgi` application server)
-* [PostgreSQL]([PostgreSQL](https://www.postgresql.org/).) (database backend)
+* [PostgreSQL](https://www.postgresql.org/) (database backend)
 * [Certbot + LetsEncrypt](https://letsencrypt.org/)
 
 #### Configuration Summary
