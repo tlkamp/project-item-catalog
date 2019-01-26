@@ -26,9 +26,12 @@ The server can be accessed via `ssh` on port `2200` (`ssh -i /path/to/id/file us
 * [PostgreSQL]([PostgreSQL](https://www.postgresql.org/).) (database backend)
 * [Certbot + LetsEncrypt](https://letsencrypt.org/)
 
-#### Configuration
-* Gunicorn is the `wsgi` server used to serve the application.
-  * Gunicorn is [configured](server_config/mygunicorn.service#L13) to only serve requests to `localhost:8080` using 4 web workers.
+#### Configuration Summary
+* The `ssh` service is configured to only permit publickey authentication for all users. The service is bound to port `2200` instead of `22` and the `root` user is not permitted to log in remotely.
+* PostgreSQL is installed and configured to accept connections from `localhost` only. [Peer authentication](https://www.postgresql.org/docs/9.1/auth-methods.html) is used for the `catalog` user.
+  * Because peer authentication is used for connecting to the database, the corresponding system user (`catalog`) is not permitted to log into the server at all. Any attempts will result in a "This account is currently not available" message.
+* Gunicorn is the `wsgi` server used to serve the application. It only listens to requests from `localhost:8080`. It runs the application as the `catalog` system user.
+  * Gunicorn is [configured](server_config/mygunicorn.service) as a [`systemd`](http://manpages.ubuntu.com/manpages/bionic/man1/systemd.1.html) service. This enables startup on boot of the server, and status checks/stops/starts can be handled through typical `systemctl/service` commands. Logs are sent to `journal` automatically by `systemd`.
 * Nginx is configured as the primary web server and reverse proxy.
 
 All relevant configuration can be found in the [`server_config`](server_config/) directory.
