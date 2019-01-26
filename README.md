@@ -34,8 +34,9 @@ The server can be accessed via `ssh` on port `2200` (`ssh -i /path/to/id/file us
   * Gunicorn is [configured](server_config/mygunicorn.service) as a [`systemd`](http://manpages.ubuntu.com/manpages/bionic/man1/systemd.1.html) service. This enables startup on boot of the server, and status checks/stops/starts can be handled through typical `systemctl/service` commands. Logs are sent to `journal` automatically by `systemd`.
 * Nginx is [configured](server_config/default) as the primary web server and reverse proxy.
   * Nginx listens for requests sent to `tlkamp.com` on ports `80`/`443` and routes them to the Gunicorn server and serves gunicorn's responses back to the user.
+  * Nginx also routes all HTTP requests (on port 80) to HTTPS (443) to ensure encrypted communication for the user, since `requests-oauthlib` requires it.
+* TLS/SSL certificates were obtained for the `tlkamp.com` domain using LetsEncrypt and Certbot.
 
-All relevant configuration can be found in the [`server_config`](server_config/) directory.
 
 ## Running the App Locally
 1. Ensure the [fullstack-nanodegree-vm project](https://github.com/udacity/fullstack-nanodegree-vm) has been downloaded.
