@@ -14,10 +14,7 @@ The second project in the Fullstack Web Developer Nanodegree.
 * [autopep8](https://pypi.org/project/autopep8/) - for automatically fixing issues reported by `pycodestyle`.
 
 ## Server Configuration
-The application is deployed at [www.tlkamp.com](https://www.tlkamp.com) using [nginx](https://www.nginx.com/) as a
-reverse proxy to a [gunicorn](https://gunicorn.org/) `wsgi` application server enabled via `systemd`.
-
-The server can be accessed via `ssh` on port `2200` (`ssh -i /path/to/id/file user@tlkamp.com -p 2200`).
+The application is designed to be deployed using [nginx](https://www.nginx.com/) as a reverse proxy to a [gunicorn](https://gunicorn.org/) `wsgi` application server enabled via `systemd`.
 
 #### Software Installed
 * [Python 2.7](https://docs.python.org/2.7/) and [pip](https://pypi.org/project/pip/)
@@ -33,9 +30,8 @@ The server can be accessed via `ssh` on port `2200` (`ssh -i /path/to/id/file us
 * Gunicorn is the `wsgi` server used to serve the application. It only listens to requests from `localhost:8080`. It runs the application as the `catalog` system user.
   * Gunicorn is [configured](server_config/mygunicorn.service) as a [`systemd`](http://manpages.ubuntu.com/manpages/bionic/man1/systemd.1.html) service. This enables startup on boot of the server, and status checks/stops/starts can be handled through typical `systemctl/service` commands. Logs are sent to `journal` automatically by `systemd`.
 * Nginx is [configured](server_config/default) as the primary web server and reverse proxy.
-  * Nginx listens for requests sent to `tlkamp.com` on ports `80`/`443` and routes them to the Gunicorn server and serves gunicorn's responses back to the user.
   * Nginx also routes all HTTP requests (on port 80) to HTTPS (443) to ensure encrypted communication for the user, since `requests-oauthlib` requires it.
-* TLS/SSL certificates were obtained for the `tlkamp.com` domain using LetsEncrypt and Certbot.
+* TLS/SSL certificates were obtained using LetsEncrypt and Certbot.
 
 
 ## Running the App Locally
